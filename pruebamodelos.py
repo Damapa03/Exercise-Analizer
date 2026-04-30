@@ -34,6 +34,7 @@ import yt_dlp
 import numpy as np
 import argparse
 import time
+import torch
 from ultralytics import YOLO
 
 # ═══════════════════════════════════════════════════════════════════
@@ -113,7 +114,7 @@ def max_status(current, new):
 
 # ═══════════════════════════════════════════════════════════════════
 #  DETECCIÓN DE ORIENTACIÓN Y RESOLUCIÓN DE KEYPOINTS BILATERALES
-# ═══════════════════════════════════════════════════════════════════
+# 
 
 def detect_orientation(kp_raw):
     """
@@ -608,8 +609,10 @@ def run(source, exercise="squat", model_size=MODEL_SIZE, conf=CONF):
     exercise_name, AnalyzerClass = EJERCICIOS.get(exercise, EJERCICIOS["squat"])
     analyzer = AnalyzerClass()
 
-    print(f"\n[YOLO] Cargando yolov8{model_size}-pose.pt ...")
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"\n[YOLO] Cargando yolov8{model_size}-pose.pt en {device.upper()}...")
     model = YOLO(f"yolov8{model_size}-pose.pt")
+    model.to(device)
     print("[YOLO] Modelo listo.\n")
 
     # ── Determinar fuente ──
