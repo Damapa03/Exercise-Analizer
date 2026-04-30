@@ -463,10 +463,12 @@ def draw_hud(frame, result, exercise_name, fps):
     # Título
     cv2.putText(frame, "Daniel Marin Pacheco", (10, y),
                 cv2.FONT_HERSHEY_DUPLEX, 0.50, C["accent"], 1, cv2.LINE_AA)
-    y += 20
+    cv2.putText(frame, "IES Fernando Aguilar", (10, y + 20),
+                cv2.FONT_HERSHEY_DUPLEX, 0.40, C["accent"], 1, cv2.LINE_AA)
+    y += 50
     cv2.putText(frame, exercise_name.upper(), (10, y),
                 cv2.FONT_HERSHEY_DUPLEX, 0.65, C["white"], 2, cv2.LINE_AA)
-    y += 5
+    y += 10
     cv2.line(frame, (10, y), (panel_w - 10, y), C["accent"], 1)
 
     # ── Orientación: badge grande visible sobre el vídeo ──
