@@ -669,7 +669,14 @@ def run(source, exercise="squat", model_size=MODEL_SIZE, conf=CONF):
         print("     Webcam activa — Q para salir\n")
     else:
         print("     Sin ventana — procesando en segundo plano...\n")
+    window_name = f"Pose Analyzer - {exercise_name}"
 
+    # 2. Crear la ventana con soporte para redimensionado
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+
+    # 3. (Opcional) Forzar a que mantenga la proporción de aspecto
+    cv2.setWindowProperty(window_name, cv2.WND_PROP_ASPECT_RATIO, cv2.WINDOW_KEEPRATIO)
+    
     while True:
         ret, frame = cap.read()
         if not ret:
